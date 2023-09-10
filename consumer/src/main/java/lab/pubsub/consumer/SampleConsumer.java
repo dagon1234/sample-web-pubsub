@@ -9,11 +9,16 @@ import org.springframework.stereotype.Component;
 public class SampleConsumer {
 	Logger LOG = LoggerFactory.getLogger(SampleConsumer.class);
 
-	//TODO: add listener methods here
+	// TODO: add listener methods here
 	@KafkaListener(topics = "sample")
 	void listener(String transaction) {
 		LOG.info(transaction);
-		
+
 		// process transaction here
+	}
+
+	@KafkaListener(topics = "greet")
+	void listenGreet(String name) {
+		LOG.info("Hello " + name.toUpperCase());
 	}
 }

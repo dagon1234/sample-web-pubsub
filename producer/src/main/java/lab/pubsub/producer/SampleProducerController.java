@@ -10,21 +10,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class SampleProducerController {
-	
-	//TODO: add the kafka template for configuration.
+
+	// TODO: add the kafka template for configuration.
 	@Autowired
 	private KafkaTemplate<String, String> kafkaTemplate;
 
 	Thread generator;
-	
 
 	@GetMapping("/message/{msg}")
 	public ResponseEntity<String> send(@PathVariable String msg) {
-		
+
 		kafkaTemplate.send("sample", msg);
-		
+
 		return new ResponseEntity<>("Message sent.", HttpStatus.OK);
 	}
 
+	@GetMapping("/greet/{name}")
+	public ResponseEntity<String> greet(@PathVariable String name) {
+
+		kafkaTemplate.send("greet", name);
+
+		return new ResponseEntity<>("Greeting " + name, HttpStatus.OK);
+	}
 
 }
